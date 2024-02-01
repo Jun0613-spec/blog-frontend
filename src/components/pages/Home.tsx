@@ -32,7 +32,7 @@ const Home = () => {
   ) => {
     if (!responseBody) return;
     const { code } = responseBody;
-    if (code === "DBE") toast.error("DATABASE ERROR");
+    if (code === "DBE") return "DATABASE ERROR";
     if (code !== "SU") return;
 
     const { top3List } = responseBody as GetTop3PostListResponse;
@@ -45,7 +45,7 @@ const Home = () => {
   ) => {
     if (!responseBody) return;
     const { code } = responseBody;
-    if (code === "DBE") toast.error("DATABASE ERROR");
+    if (code === "DBE") return "DATABASE ERROR";
     if (code !== "SU") return;
 
     const { latestList } = responseBody as GetLatestPostListResponse;
@@ -58,7 +58,7 @@ const Home = () => {
   ) => {
     if (!responseBody) return;
     const { code } = responseBody;
-    if (code === "DBE") toast.error("DATABASE ERROR");
+    if (code === "DBE") return "DATABASE ERROR";
     if (code !== "SU") return;
 
     const { popularWordList } = responseBody as GetPopularListResponse;

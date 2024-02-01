@@ -73,7 +73,7 @@ const UserPage = () => {
 
   const [profileImage, setProfileImage] = useState<string | null>(null);
 
-  const [count, setCount] = useState(2);
+  const [count, setCount] = useState(0);
 
   //delete this later
   const [email, setEmail] = useState("");
@@ -124,7 +124,7 @@ const UserPage = () => {
   const getUserResponse = (responseBody: GetUserResponse | Response | null) => {
     if (!responseBody) return;
     const { code } = responseBody;
-    if (code === "DBE") toast.error("DATABASE ERROR");
+    if (code === "DBE") return "DATABASE ERROR";
     if (code === "NEU") toast.error("This user does not exist");
     if (code !== "SU") navigate(MAIN_PATH());
 
@@ -195,7 +195,7 @@ const UserPage = () => {
       navigate(MAIN_PATH());
       return;
     }
-    if (code === "DBE") toast.error("DATABASE ERROR");
+    if (code === "DBE") return "DATABASE ERROR";
     if (code !== "SU") return null;
 
     const { userPostList } = responseBody as GetUserPostListResponse;
