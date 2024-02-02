@@ -70,6 +70,7 @@ const Pagination = (props: PaginaionProps) => {
 
       {(viewPageList.length > 0 ? viewPageList : [1]).map((page) => (
         <div
+          key={page}
           className={`${
             page === currentPage
               ? "text-black dark:text-neutral-50"

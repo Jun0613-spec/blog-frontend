@@ -100,11 +100,10 @@ const PostDetail = () => {
       if (!responseBody) return;
       const { code } = responseBody;
       if (code === "VF") toast.error("Validation failed.");
-      if (code === "NEU") toast.error("Not exist User.");
       if (code === "NEP") toast.error("Not exist post.");
       if (code === "AF") toast.error("Authorization failed.");
       if (code === "NP") toast.error("No permission.");
-      if (code === "DBE") toast.error("DATABASE ERROR.");
+      if (code === "DBE") return "DATABASE ERROR.";
       if (code !== "SU") return;
     };
 
@@ -210,8 +209,8 @@ const PostDetail = () => {
             {post.content}
           </div>
           <div className="space-y-4">
-            {post.postImageList.map((image) => (
-              <img src={image} alt="" className="w-full h-auto" />
+            {post.postImageList.map((image, index) => (
+              <img key={index} src={image} alt="" className="w-full h-auto" />
             ))}
           </div>
         </div>
@@ -251,7 +250,7 @@ const PostDetail = () => {
       if (!responseBody) return;
 
       const { code } = responseBody;
-      if (code === "DBE") toast.error("DATABASE ERROR");
+      if (code === "DBE") return "DATABASE ERROR";
       if (code !== "SU") return;
 
       const { favoriteList } = responseBody as GetFavoriteListResponse;
@@ -278,7 +277,7 @@ const PostDetail = () => {
       const { code } = responseBody;
       if (code === "VF") toast.error("Validation failed");
       if (code === "AF") toast.error("Authorization failed");
-      if (code === "DBE") toast.error("DATABASE ERROR");
+      if (code === "DBE") return "DATABASE ERROR";
       if (code !== "SU") return;
 
       if (!postId) return;
@@ -292,7 +291,7 @@ const PostDetail = () => {
       if (!responseBody) return;
 
       const { code } = responseBody;
-      if (code === "DBE") toast.error("DATABASE ERROR");
+      if (code === "DBE") return "DATABASE ERROR";
       if (code !== "SU") return;
 
       const { commentList } = responseBody as GetCommentListResponse;
@@ -310,7 +309,7 @@ const PostDetail = () => {
       const { code } = responseBody;
       if (code === "VF") toast.error("Validation failed");
       if (code === "AF") toast.error("Authorization failed");
-      if (code === "DBE") toast.error("DATABASE ERROR");
+      if (code === "DBE") return "DATABASE ERROR";
       if (code !== "SU") return;
 
       if (!postId) return;
@@ -479,7 +478,7 @@ const PostDetail = () => {
     if (!responseBody) return null;
 
     const { code } = responseBody;
-    if (code === "DBE") toast.error("DATABASE ERROR");
+    if (code === "DBE") return "DATABASE ERROR";
   };
 
   // View counter
