@@ -39,7 +39,6 @@ import UpdateUsernameResponse from "./response/user/update-username.response";
 import UpdateProfileImageRequest from "./request/user/update-profile-image.request";
 import UpdateProfileImageResponse from "./response/user/update-profile-image.response";
 
-//const DOMAIN = "http://localhost:8000";
 const DOMAIN = process.env.REACT_APP_API_URL;
 const API_DOMAIN = `${DOMAIN}/api/v1`;
 
@@ -276,6 +275,7 @@ const FILE_UPLOAD_URL = () => `${DOMAIN}/file/upload`;
 
 const multipartFormData = {
   headers: { "Content-Type": "multipart/form-data" },
+  credentials: "include",
 };
 
 export const fileUploadRequest = async (data: FormData) => {
