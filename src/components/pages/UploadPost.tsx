@@ -18,7 +18,7 @@ const PostWrite = () => {
   const { postImageFileList, setPostImageFileList } = usePostStore();
   const { resetPost } = usePostStore();
 
-  const [cookies, setCookies] = useCookies();
+  const [cookies] = useCookies();
 
   const [imageUrls, setImageUrls] = useState<string[]>([]);
 
