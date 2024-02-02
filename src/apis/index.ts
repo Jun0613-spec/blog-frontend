@@ -272,9 +272,7 @@ export const increaseViewCountRequest = async (postId: number | string) => {
 };
 
 //Image Upload
-const FILE_DOMAIN = `${DOMAIN}/file`;
-
-const FILE_UPLOAD_URL = () => `${FILE_DOMAIN}/upload`;
+const FILE_UPLOAD_URL = () => `${DOMAIN}/file/upload`;
 
 const multipartFormData = {
   headers: { "Content-Type": "multipart/form-data" },
@@ -288,7 +286,7 @@ export const fileUploadRequest = async (data: FormData) => {
       return responseBody;
     })
     .catch((error) => {
-      return null;
+      return error.data;
     });
   return result;
 };
