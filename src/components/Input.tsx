@@ -36,8 +36,8 @@ const Input = forwardRef<HTMLInputElement, Props>((props: Props, ref) => {
       <div
         className={
           error
-            ? "bg-neutral-50 flex items-center pl-0 pr-2 py-[11px] border-b-red-500 border-b border-solid"
-            : "flex items-center pl-0 pr-4 py-[11px] border-b-neutral-400 border-b border-solid"
+            ? "bg-transparent flex items-center pl-0 pr-2 py-3 border-b-red-500 border-b border-solid"
+            : "flex items-center pl-0 pr-4 py-3 border-b-neutral-400 border-b border-solid"
         }
       >
         <input

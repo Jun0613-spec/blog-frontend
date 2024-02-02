@@ -177,7 +177,7 @@ const UserPage = () => {
       getUserResponse(updatedUser);
 
       navigate(USER_PATH(changeUsername));
-      toast("Username has been changed");
+      toast.success("Username has been changed");
       setIsUsernameChange(false);
 
       updateLoginUser(updatedUser);

@@ -53,7 +53,7 @@ export default function Authentication() {
 
       const { code } = responseBody;
 
-      if (code === "DBE") toast.error("Database error.");
+      if (code === "DBE") return "Database error";
       if (code === "SF" || code === "VF") setError(true);
       if (code !== "SU") return;
 
@@ -269,7 +269,7 @@ export default function Authentication() {
 
       if (code === "VF") toast.error("You must enter everthing.");
 
-      if (code === "DBE") toast.error("Database Error.");
+      if (code === "DBE") return "Database Error.";
 
       if (code !== "SU") return;
 
