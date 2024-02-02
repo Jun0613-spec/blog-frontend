@@ -15,14 +15,7 @@ const FavoriteItem = ({ favoriteListItem }: Props) => {
   return (
     <div className="flex items-center gap-2">
       <div className="w-6 h-6 md:w-8 md:h-8">
-        <div
-        //className="w-full h-full bg-center bg-cover rounded-full"
-        // style={{
-        //   backgroundImage: `url(${
-        //     profileImage ? profileImage : defaultProfile
-        //   })`,
-        // }}
-        >
+        <div>
           <Avatar src={profileImage ? profileImage : defaultProfile} />
         </div>
       </div>

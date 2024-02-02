@@ -37,16 +37,7 @@ const PostItem = ({ postListItem }: Props) => {
     >
       <div className="flex-1 flex flex-col gap-4">
         <div className="flex items-center gap-4">
-          <div
-          // className="board-list-item-profile-image w-full h-full bg-center bg-cover rounded-full"
-          // style={{
-          //   backgroundImage: `url(${
-          //     postUserProfileImage
-          //       ? postUserProfileImage
-          //       : defaultProfileImage
-          //   })`,
-          // }}
-          >
+          <div>
             <Avatar
               src={postUserProfileImage ? postUserProfileImage : defaultProfile}
             />
@@ -78,11 +69,11 @@ const PostItem = ({ postListItem }: Props) => {
         </div>
       </div>
       {postTitleImage && (
-        <div className="w-[152px] h-full">
+        <div className="w-36 h-36 ">
           <img
             src={`${postTitleImage}`}
             alt=""
-            className=" w-full h-full bg-center bg-cover rounded-lg"
+            className="w-full h-full bg-center rounded-lg object-cover"
           />
         </div>
       )}
