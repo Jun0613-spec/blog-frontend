@@ -1,14 +1,11 @@
-# Full Stack blog app for frontend: React, Tailwind, React Router, axios, zustand, Daisy UI, react-hot-toast
+# Full Stack blog app for frontend: React,Typescript, Tailwind, React Router, axios, zustand, Daisy UI, react-hot-toast
 
 This is a repository for a Full Stack blog app for frontend
 
 ### Tech
 
-<img src="https://img.shields.io/badge/React-#61DAFB?style=flat-square&logo=React&logoColor=white"/>
-
-### Prerequisites
-
-**Node version 14.x**
+<img src="https://img.shields.io/badge/react-#61DAFB?style=flat-square&logo=react&logoColor=white"/>
+<img src="https://img.shields.io/badge/typescript-#3178C6?style=flat-square&logo=typescript&logoColor=white"/>
 
 ### Install packages
 
