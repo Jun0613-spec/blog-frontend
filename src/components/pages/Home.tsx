@@ -156,14 +156,16 @@ const Home = () => {
         </div>
       </div>
       <div className="flex justify-center items-center py-6 gap-2">
-        <Pagination
-          currentPage={currentPage}
-          currentSection={currentSection}
-          setCurrentPage={setCurrentPage}
-          setCurrentSection={setCurrentSection}
-          viewPageList={viewPageList}
-          totalSection={totalSection}
-        />
+        {viewList.length > 0 && (
+          <Pagination
+            currentPage={currentPage}
+            currentSection={currentSection}
+            setCurrentPage={setCurrentPage}
+            setCurrentSection={setCurrentSection}
+            viewPageList={viewPageList}
+            totalSection={totalSection}
+          />
+        )}
       </div>
     </div>
   );
