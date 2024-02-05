@@ -51,6 +51,11 @@ const usePagination = <T>(countPerPage: number) => {
     setViewPage();
   }, [currentSection]);
 
+  useEffect(() => {
+    console.log("Total list updated:", totalList);
+    // ... rest of the code
+  }, [totalList, countPerPage]);
+
   return {
     currentPage,
     setCurrentPage,
