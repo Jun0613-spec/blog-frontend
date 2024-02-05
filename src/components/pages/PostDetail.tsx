@@ -430,8 +430,8 @@ const PostDetail = () => {
             <div className="flex items-center justify-center">
               <Paigination
                 currentPage={currentPage}
-                currentSection={currentSection}
                 setCurrentPage={setCurrentPage}
+                currentSection={currentSection}
                 setCurrentSection={setCurrentSection}
                 viewPageList={viewPageList}
                 totalSection={totalSection}
