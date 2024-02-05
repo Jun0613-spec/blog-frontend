@@ -133,10 +133,7 @@ const Home = () => {
           <div className="col-1/2 grid md:grid-cols-[8fr_4fr] gap-6">
             <div className="flex flex-col gap-4">
               {viewList.map((postListItem) => (
-                <PostItem
-                  key={postListItem.postId}
-                  postListItem={postListItem}
-                />
+                <PostItem postListItem={postListItem} />
               ))}
             </div>
             <div className="col-2/3">

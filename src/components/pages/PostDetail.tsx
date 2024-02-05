@@ -129,8 +129,9 @@ const PostDetail = () => {
         deletePostRequest(postId, cookies.accessToken).then(deletePostResponse);
 
         navigate(MAIN_PATH());
-        window.location.reload();
+
         toast.success("Succefully deleted.");
+        window.location.reload();
       } else {
         toast.error("Cancelled");
       }
