@@ -31,7 +31,6 @@ const usePagination = <T>(countPerPage: number) => {
   };
 
   // When total list changes
-  // In your useEffect for totalList
   useEffect(() => {
     const totalPage = Math.ceil(totalList.length / countPerPage);
     const totalPageList: number[] = [];
