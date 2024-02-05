@@ -28,7 +28,7 @@ const Pagination = (props: PaginaionProps) => {
   };
 
   const onPreviousHandler = () => {
-    // If already on the first page and first section, do nothing
+    // If already on the first page and first section, do nothing and return
     if (currentPage === 1 && currentSection === 1) return;
 
     const firstPageInSection = (currentSection - 1) * 5 + 1;
