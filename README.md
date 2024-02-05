@@ -4,7 +4,7 @@ This is a repository for a Full Stack blog app for frontend
 
 ### Live Demo
 
-Check out the live demo: [Blog Frontend](https://blog-frontend-one-hazel.vercel.app/)
+Check out the live demo: [Blogfy](https://blog-frontend-one-hazel.vercel.app/)
 
 ### Backend Repository
 
