@@ -39,8 +39,6 @@ import UpdateProfileImageResponse from "../../apis/response/user/update-profile-
 import UpdateUsernameRequest from "../../apis/request/user/update-username.request";
 import UpdateUsernameResponse from "../../apis/response/user/update-username.response";
 
-//import "./user.css";
-
 const UserPage = () => {
   const { userName } = useParams();
 
@@ -203,20 +201,10 @@ const UserPage = () => {
     setCount(userPostList.length);
   };
 
-  // useEffect(() => {
-  //   if (!userName) return;
-  //   getUserRequest(userName).then(getUserResponse);
-  //   getUserPostListRequest(userName).then(getUserPostListResponse);
-  // }, [userName]);
-
   useEffect(() => {
-    console.log("Fetching user posts...");
-
     if (!userName) return;
-    getUserPostListRequest(userName).then((response) => {
-      console.log("User post list response:", response);
-      getUserPostListResponse(response);
-    });
+    getUserRequest(userName).then(getUserResponse);
+    getUserPostListRequest(userName).then(getUserPostListResponse);
   }, [userName]);
 
   return (
