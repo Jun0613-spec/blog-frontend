@@ -2,11 +2,17 @@ import { useEffect, useState } from "react";
 
 const usePagination = <T>(countPerPage: number) => {
   const [totalList, setTotalList] = useState<T[]>([]);
+
   const [viewList, setViewList] = useState<T[]>([]);
+
   const [currentPage, setCurrentPage] = useState<number>(1);
+
   const [totalPageList, setTotalPageList] = useState<number[]>([1]);
+
   const [viewPageList, setViewPageList] = useState<number[]>([1]);
+
   const [currentSection, setCurrentSection] = useState<number>(1);
+
   const [totalSection, setTotalSection] = useState<number>(1);
 
   const setView = () => {
@@ -30,29 +36,29 @@ const usePagination = <T>(countPerPage: number) => {
     setViewPageList(viewPageList);
   };
 
-  // When total list changes
+  //When total list changes
   useEffect(() => {
     const totalPage = Math.ceil(totalList.length / countPerPage);
-    const totalPages = [];
-    for (let page = 1; page <= totalPage; page++) totalPages.push(page);
-    setTotalPageList(totalPages);
+    const totalPageList: number[] = [];
+    for (let page = 1; page <= totalPage; page++) totalPageList.push(page);
+    setTotalPageList(totalPageList);
 
-    const sections = Math.ceil(totalPages.length / 5);
-    setTotalSection(sections);
+    const totalSection = Math.ceil(totalPageList.length / 5);
+    setTotalSection(totalSection);
 
     setCurrentPage(1);
     setCurrentSection(1);
 
     setView();
     setViewPage();
-  }, [totalList, countPerPage]);
+  }, [totalList]);
 
-  // When current Page changes
+  //When current Page changes
   useEffect(() => {
     setView();
   }, [currentPage]);
 
-  // When current Section changes
+  //When current Section changes
   useEffect(() => {
     setViewPage();
   }, [currentSection]);
