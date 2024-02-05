@@ -4,8 +4,7 @@ This is a repository for a Full Stack blog app for frontend
 
 ### Tech
 
-<img src="https://img.shields.io/badge/React-#61DAFB? 
-style=flat-square&logo=react&logoColor=blue" />
+<img src="https://img.shields.io/badge/React-#61DAFB?style=flat-square&logo=React&logoColor=white"/>
 
 ### Prerequisites
 
