@@ -10,7 +10,7 @@ interface Props {
   postListItem: PostListItem;
 }
 
-const PostItem = ({ postListItem }: Props) => {
+const PostItem: React.FC<Props> = ({ postListItem }) => {
   const {
     postId,
     title,

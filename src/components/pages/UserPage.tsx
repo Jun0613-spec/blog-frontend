@@ -296,11 +296,8 @@ const UserPage = () => {
               </p>
             ) : (
               <div className="col-1/2 flex flex-col gap-4">
-                {viewList.map((postListItem) => (
-                  <PostItem
-                    key={postListItem.postId}
-                    postListItem={postListItem}
-                  />
+                {viewList.map((item) => (
+                  <PostItem key={item.postId} postListItem={item} />
                 ))}
               </div>
             )}

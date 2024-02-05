@@ -25,8 +25,6 @@ import GetPopularListResponse from "../../apis/response/search/get-popular-list.
 const Home = () => {
   const navigate = useNavigate();
 
-  const { postId } = useParams();
-
   // Get Top3 Post List Response
   const getTop3PostListResponse = (
     responseBody: GetTop3PostListResponse | Response | null
@@ -50,7 +48,7 @@ const Home = () => {
     if (code !== "SU") return;
 
     const { latestList } = responseBody as GetLatestPostListResponse;
-    console.log(latestList); // Log the latest post list
+
     setTotalList(latestList);
   };
 
@@ -96,7 +94,7 @@ const Home = () => {
   useEffect(() => {
     getLatestPostListRequest().then(getLatestPostListResponse);
     getPopularWordListRequest().then(getPopularWordListResponse);
-  }, [postId]);
+  }, []);
 
   return (
     <div className="bg-white dark:bg-zinc-800">
@@ -133,11 +131,8 @@ const Home = () => {
           </p>
           <div className="col-1/2 grid md:grid-cols-[8fr_4fr] gap-6">
             <div className="flex flex-col gap-4">
-              {viewList.map((postListItem) => (
-                <PostItem
-                  key={postListItem.postId}
-                  postListItem={postListItem}
-                />
+              {viewList.map((item) => (
+                <PostItem key={item.postId} postListItem={item} />
               ))}
             </div>
             <div className="col-2/3">
