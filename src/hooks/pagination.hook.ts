@@ -31,14 +31,15 @@ const usePagination = <T>(countPerPage: number) => {
   };
 
   // When total list changes
+  // In your useEffect for totalList
   useEffect(() => {
     const totalPage = Math.ceil(totalList.length / countPerPage);
-    const totalPages = [];
-    for (let page = 1; page <= totalPage; page++) totalPages.push(page);
-    setTotalPageList(totalPages);
+    const totalPageList: number[] = [];
+    for (let page = 1; page <= totalPage; page++) totalPageList.push(page);
+    setTotalPageList(totalPageList);
 
-    const sections = Math.ceil(totalPages.length / 5);
-    setTotalSection(sections);
+    const totalSection = Math.ceil(totalPageList.length / 5);
+    setTotalSection(totalSection);
 
     setCurrentPage(1);
     setCurrentSection(1);
