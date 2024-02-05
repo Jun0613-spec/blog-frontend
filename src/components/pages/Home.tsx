@@ -50,6 +50,7 @@ const Home = () => {
     if (code !== "SU") return;
 
     const { latestList } = responseBody as GetLatestPostListResponse;
+    console.log(latestList); // Log the latest post list
     setTotalList(latestList);
   };
 
@@ -133,7 +134,10 @@ const Home = () => {
           <div className="col-1/2 grid md:grid-cols-[8fr_4fr] gap-6">
             <div className="flex flex-col gap-4">
               {viewList.map((postListItem) => (
-                <PostItem postListItem={postListItem} />
+                <PostItem
+                  key={postListItem.postId}
+                  postListItem={postListItem}
+                />
               ))}
             </div>
             <div className="col-2/3">
