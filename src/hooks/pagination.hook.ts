@@ -11,20 +11,14 @@ const usePagination = <T>(countPerPage: number) => {
 
   const setView = () => {
     const firstIndex = countPerPage * (currentPage - 1);
-    const lastIndex =
-      totalList.length > countPerPage * currentPage
-        ? countPerPage * currentPage
-        : totalList.length;
+    const lastIndex = Math.min(countPerPage * currentPage, totalList.length);
     const viewList = totalList.slice(firstIndex, lastIndex);
     setViewList(viewList);
   };
 
   const setViewPage = () => {
     const firstIndex = 5 * (currentSection - 1);
-    const lastIndex =
-      totalPageList.length > 5 * currentSection
-        ? 5 * currentSection
-        : totalPageList.length;
+    const lastIndex = Math.min(5 * currentSection, totalPageList.length);
 
     const viewPageList = totalPageList.slice(firstIndex, lastIndex);
     setViewPageList(viewPageList);

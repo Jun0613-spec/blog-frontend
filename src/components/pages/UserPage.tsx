@@ -207,6 +207,11 @@ const UserPage = () => {
     if (!userName) return;
     getUserRequest(userName).then(getUserResponse);
     getUserPostListRequest(userName).then(getUserPostListResponse);
+
+    console.log("currentPage:", currentPage);
+    console.log("currentSection:", currentSection);
+    console.log("viewPageList:", viewPageList);
+    console.log("totalSection:", totalSection);
   }, [userName]);
 
   return (
