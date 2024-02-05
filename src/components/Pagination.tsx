@@ -23,6 +23,11 @@ const Pagination = (props: PaginaionProps) => {
     totalSection,
   } = props;
 
+  console.log("currentPage:", currentPage);
+  console.log("currentSection:", currentSection);
+  console.log("totalSection:", totalSection);
+  console.log("viewPageList:", viewPageList);
+
   const onPageClickHandler = (page: number) => {
     setCurrentPage(page);
   };
