@@ -11,13 +11,15 @@ const ErrorPage = () => {
         Page Not Found
       </div>
       <button className="mt-5">
-        <a className="relative inline-block text-sm font-medium text-white group active:text-opacity-60 focus:outline-none focus:ring">
+        <Link
+          to="/"
+          className="relative inline-block text-sm font-medium text-white group active:text-opacity-60 focus:outline-none focus:ring"
+        >
           <span className="absolute inset-0 transition-transform translate-x-0.5 translate-y-0.5 bg-red-600 group-hover:translate-y-0 group-hover:translate-x-0"></span>
-
           <span className="relative block px-8 py-3 bg-neutral-500 border border-current">
-            <Link to="/">Go Home</Link>
+            Go Home
           </span>
-        </a>
+        </Link>
       </button>
     </main>
   );

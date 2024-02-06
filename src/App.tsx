@@ -36,31 +36,31 @@ function App() {
   const { setLoginUser, resetLoginUser } = useLoginUserStore();
 
   // Cookie status
-  const [cookies, setCookie] = useCookies();
-
-  const getLoginUserResponse = (
-    responseBody: GetLoginUserResponse | Response | null
-  ) => {
-    if (!responseBody) return null;
-
-    const { code } = responseBody;
-    if (code === "AF" || code === "DBE") {
-      resetLoginUser();
-      return;
-    }
-
-    const loginUser: User = { ...(responseBody as GetLoginUserResponse) };
-    setLoginUser(loginUser);
-  };
+  const [cookies] = useCookies();
 
   // Access Token effect
   useEffect(() => {
+    const getLoginUserResponse = (
+      responseBody: GetLoginUserResponse | Response | null
+    ) => {
+      if (!responseBody) return null;
+
+      const { code } = responseBody;
+      if (code === "AF" || code === "DBE") {
+        resetLoginUser();
+        return;
+      }
+
+      const loginUser: User = { ...(responseBody as GetLoginUserResponse) };
+      setLoginUser(loginUser);
+    };
+
     if (!cookies.accessToken) {
       resetLoginUser();
       return;
     }
     getLoginUserRequest(cookies.accessToken).then(getLoginUserResponse);
-  }, [cookies.accessToken]);
+  }, [cookies.accessToken, resetLoginUser, setLoginUser]);
 
   return (
     <>
