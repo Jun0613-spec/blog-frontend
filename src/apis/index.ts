@@ -432,17 +432,17 @@ export const deleteCommentRequest = async (
 };
 
 // List
-const GET_LATEST_POST_LIST_URL = () => `${API_DOMAIN}/post/list/latest`;
-const GET_TOP3_POST_LIST_URL = () => `${API_DOMAIN}/post/list/top3`;
+const GET_LATEST_POST_LIST_URL = () => `${API_DOMAIN}/list/latest`;
+const GET_TOP3_POST_LIST_URL = () => `${API_DOMAIN}/list/top3`;
 const GET_SEARCH_POST_LIST_URL = (
   searchWord: string,
   preSearchWord: string | null
 ) =>
-  `${API_DOMAIN}/post/list/search/${searchWord}${
+  `${API_DOMAIN}/list/search/${searchWord}${
     preSearchWord ? "/" + preSearchWord : ""
   }`;
 const GET_USER_POST_LIST_URL = (userName: string) =>
-  `${API_DOMAIN}/post/list/user/${userName}`;
+  `${API_DOMAIN}/list/user/${userName}`;
 
 export const getLatestPostListRequest = async () => {
   const result = await axios
