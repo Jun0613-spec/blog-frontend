@@ -70,9 +70,8 @@ const Pagination: React.FC<PaginationProps> = ({
         </button>
       </div>
 
-      {(viewPageList.length > 0 ? viewPageList : [1]).map((page) => (
+      {(viewPageList.length > 0 ? viewPageList : [1]).map((page: number) => (
         <div
-          key={page}
           className={`${
             page === currentPage
               ? "text-black dark:text-neutral-50"

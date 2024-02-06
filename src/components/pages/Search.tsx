@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 import PostListItem from "../../types/interface/post-list-item.interface";
@@ -45,35 +45,20 @@ const Search = () => {
   };
 
   //Get Search Post LIst Response
-  const getSearchPostLIstResponse = useCallback(
-    (responseBody: GetSearchPostListResponse | Response | null) => {
-      if (!responseBody) return;
-      const { code } = responseBody;
-      if (code === "DBE") toast.error("DATABASE ERROR");
-      if (code !== "SU") return;
+  const getSearchPostLIstResponse = (
+    responseBody: GetSearchPostListResponse | Response | null
+  ) => {
+    if (!responseBody) return;
+    const { code } = responseBody;
+    if (code === "DBE") toast.error("DATABASE ERROR");
+    if (code !== "SU") return;
 
-      if (!searchWord) return;
-      const { searchList } = responseBody as GetSearchPostListResponse;
-      setTotalList(searchList);
-      setCount(searchList.length);
-      setPreSearchWord(searchWord);
-    },
-    [searchWord, setTotalList, setCount, setPreSearchWord]
-  );
-  // const getSearchPostLIstResponse = (
-  //   responseBody: GetSearchPostListResponse | Response | null
-  // ) => {
-  //   if (!responseBody) return;
-  //   const { code } = responseBody;
-  //   if (code === "DBE") toast.error("DATABASE ERROR");
-  //   if (code !== "SU") return;
-
-  //   if (!searchWord) return;
-  //   const { searchList } = responseBody as GetSearchPostListResponse;
-  //   setTotalList(searchList);
-  //   setCount(searchList.length);
-  //   setPreSearchWord(searchWord);
-  // };
+    if (!searchWord) return;
+    const { searchList } = responseBody as GetSearchPostListResponse;
+    setTotalList(searchList);
+    setCount(searchList.length);
+    setPreSearchWord(searchWord);
+  };
 
   //Get Relation Word List Response
   const getRelationWordListResponse = (
@@ -96,7 +81,8 @@ const Search = () => {
     );
 
     getRelationWordListRequest(searchWord).then(getRelationWordListResponse);
-  }, [searchWord, preSearchWord, getSearchPostLIstResponse]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchWord]);
 
   const resultText = count === 0 || count === 1 ? "result" : "results";
 
@@ -120,10 +106,7 @@ const Search = () => {
           ) : (
             <div className="col-1/2 flex flex-col gap-4">
               {viewList.map((postListItem) => (
-                <PostItem
-                  postListItem={postListItem}
-                  key={postListItem.postId}
-                />
+                <PostItem postListItem={postListItem} />
               ))}
             </div>
           )}

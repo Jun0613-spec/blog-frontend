@@ -1,10 +1,4 @@
-import React, {
-  ChangeEvent,
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import React, { ChangeEvent, useEffect, useRef, useState } from "react";
 
 import defaultProfile from "../../assets/default-profile.png";
 import { MdArrowRightAlt, MdEdit, MdImage } from "react-icons/md";
@@ -125,38 +119,20 @@ const UserPage = () => {
   };
 
   // Get User Response
-  const getUserResponse = useCallback(
-    (responseBody: GetUserResponse | Response | null) => {
-      if (!responseBody) return;
-      const { code } = responseBody;
-      if (code === "DBE") return "DATABASE ERROR";
-      if (code === "NEU") toast.error("This user does not exist");
-      if (code !== "SU") navigate(MAIN_PATH());
+  const getUserResponse = (responseBody: GetUserResponse | Response | null) => {
+    if (!responseBody) return;
+    const { code } = responseBody;
+    if (code === "DBE") return "DATABASE ERROR";
+    if (code === "NEU") toast.error("This user does not exist");
+    if (code !== "SU") navigate(MAIN_PATH());
 
-      const { email, userName, profileImage } = responseBody as GetUserResponse;
-      setEmail(email);
-      setUsername(userName);
-      setProfileImage(profileImage);
+    const { email, userName, profileImage } = responseBody as GetUserResponse;
+    setEmail(email);
+    setUsername(userName);
+    setProfileImage(profileImage);
 
-      setIsMyPage(email === loginUser?.email);
-    },
-    [loginUser?.email, navigate]
-  );
-
-  // const getUserResponse = (responseBody: GetUserResponse | Response | null) => {
-  //   if (!responseBody) return;
-  //   const { code } = responseBody;
-  //   if (code === "DBE") return "DATABASE ERROR";
-  //   if (code === "NEU") toast.error("This user does not exist");
-  //   if (code !== "SU") navigate(MAIN_PATH());
-
-  //   const { email, userName, profileImage } = responseBody as GetUserResponse;
-  //   setEmail(email);
-  //   setUsername(userName);
-  //   setProfileImage(profileImage);
-
-  //   setIsMyPage(email === loginUser?.email);
-  // };
+    setIsMyPage(email === loginUser?.email);
+  };
 
   //File Upload Response
   const fileUploadResponse = (profileImage: string | null) => {
@@ -207,48 +183,30 @@ const UserPage = () => {
   };
 
   // Get User Post List Response
-  const getUserPostListResponse = useCallback(
-    (responseBody: GetUserPostListResponse | Response | null) => {
-      if (!responseBody) return;
-      const { code } = responseBody;
-      if (code === "NEU") {
-        toast.error("This user does not exist");
-        navigate(MAIN_PATH());
-        return;
-      }
-      if (code === "DBE") return "DATABASE ERROR";
-      if (code !== "SU") return null;
+  const getUserPostListResponse = (
+    responseBody: GetUserPostListResponse | Response | null
+  ) => {
+    if (!responseBody) return;
+    const { code } = responseBody;
+    if (code === "NEU") {
+      toast.error("This user does not exist");
+      navigate(MAIN_PATH());
+      return;
+    }
+    if (code === "DBE") return "DATABASE ERROR";
+    if (code !== "SU") return null;
 
-      const { userPostList } = responseBody as GetUserPostListResponse;
-      setTotalList(userPostList);
-      setCount(userPostList.length);
-    },
-    [navigate, setTotalList]
-  );
-
-  // const getUserPostListResponse = (
-  //   responseBody: GetUserPostListResponse | Response | null
-  // ) => {
-  //   if (!responseBody) return;
-  //   const { code } = responseBody;
-  //   if (code === "NEU") {
-  //     toast.error("This user does not exist");
-  //     navigate(MAIN_PATH());
-  //     return;
-  //   }
-  //   if (code === "DBE") return "DATABASE ERROR";
-  //   if (code !== "SU") return null;
-
-  //   const { userPostList } = responseBody as GetUserPostListResponse;
-  //   setTotalList(userPostList);
-  //   setCount(userPostList.length);
-  // };
+    const { userPostList } = responseBody as GetUserPostListResponse;
+    setTotalList(userPostList);
+    setCount(userPostList.length);
+  };
 
   useEffect(() => {
     if (!userName) return;
     getUserRequest(userName).then(getUserResponse);
     getUserPostListRequest(userName).then(getUserPostListResponse);
-  }, [userName, getUserResponse, getUserPostListResponse]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [userName]);
 
   return (
     <>
@@ -338,10 +296,7 @@ const UserPage = () => {
             ) : (
               <div className="col-1/2 flex flex-col gap-4">
                 {viewList.map((userPostList) => (
-                  <PostItem
-                    key={userPostList.postId}
-                    postListItem={userPostList}
-                  />
+                  <PostItem postListItem={userPostList} />
                 ))}
               </div>
             )}

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import TopItems from "../TopItems";
@@ -58,36 +58,18 @@ const Home = () => {
   } = usePagination<PostListItem>(5);
 
   // Get Latest Post List Response
-  const getLatestPostListResponse = useCallback(
-    (responseBody: GetLatestPostListResponse | Response | null) => {
-      if (!responseBody) return;
-      const { code } = responseBody;
-      if (code === "DBE") return "DATABASE ERROR";
-      if (code !== "SU") return;
+  const getLatestPostListResponse = (
+    responseBody: GetLatestPostListResponse | Response | null
+  ) => {
+    if (!responseBody) return;
+    const { code } = responseBody;
+    if (code === "DBE") return "DATABASE ERROR";
+    if (code !== "SU") return;
 
-      const { latestList } = responseBody as GetLatestPostListResponse;
+    const { latestList } = responseBody as GetLatestPostListResponse;
 
-      setTotalList(latestList);
-    },
-    [setTotalList]
-  );
-
-  useEffect(() => {
-    getLatestPostListRequest().then(getLatestPostListResponse);
-  }, [getLatestPostListResponse]);
-
-  // const getLatestPostListResponse = (
-  //   responseBody: GetLatestPostListResponse | Response | null
-  // ) => {
-  //   if (!responseBody) return;
-  //   const { code } = responseBody;
-  //   if (code === "DBE") return "DATABASE ERROR";
-  //   if (code !== "SU") return;
-
-  //   const { latestList } = responseBody as GetLatestPostListResponse;
-
-  //   setTotalList(latestList);
-  // };
+    setTotalList(latestList);
+  };
 
   // Get Popular Word List Response
   const getPopularWordListResponse = (
@@ -110,8 +92,9 @@ const Home = () => {
   };
 
   useEffect(() => {
+    getLatestPostListRequest().then(getLatestPostListResponse);
     getPopularWordListRequest().then(getPopularWordListResponse);
-  });
+  }, []);
 
   return (
     <div className="bg-white dark:bg-zinc-800">
@@ -131,10 +114,7 @@ const Home = () => {
             </p>
             <div className="flex gap-6 flex-row justify-between">
               {top3PostList.map((top3PostListItem) => (
-                <TopItems
-                  top3ListItem={top3PostListItem}
-                  key={top3PostListItem.postId}
-                />
+                <TopItems top3ListItem={top3PostListItem} />
               ))}
             </div>
           </div>
@@ -149,10 +129,7 @@ const Home = () => {
           <div className="col-1/2 grid md:grid-cols-[8fr_4fr] gap-6">
             <div className="flex flex-col gap-4">
               {viewList.map((latestPostListItem) => (
-                <PostItem
-                  key={latestPostListItem.postId}
-                  postListItem={latestPostListItem}
-                />
+                <PostItem postListItem={latestPostListItem} />
               ))}
             </div>
             <div className="col-2/3">
