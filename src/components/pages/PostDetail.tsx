@@ -1,4 +1,10 @@
-import React, { ChangeEvent, useEffect, useRef, useState } from "react";
+import React, {
+  ChangeEvent,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { HiOutlineDotsVertical } from "react-icons/hi";
 import { FaHeart, FaRegCommentDots, FaRegHeart } from "react-icons/fa";
 import {
@@ -143,7 +149,7 @@ const PostDetail = () => {
       }
 
       getPostRequest(postId).then(getPostResponse);
-    }, [postId]);
+    }, []);
 
     if (!post) return <></>;
 
@@ -285,20 +291,35 @@ const PostDetail = () => {
     };
 
     //Get Comment List Response
-    const getCommentListResponse = (
-      responseBody: GetCommentListResponse | Response | null
-    ) => {
-      if (!responseBody) return;
+    const getCommentListResponse = useCallback(
+      (responseBody: GetCommentListResponse | Response | null) => {
+        if (!responseBody) return;
 
-      const { code } = responseBody;
-      if (code === "DBE") return "DATABASE ERROR";
-      if (code !== "SU") return;
+        const { code } = responseBody;
+        if (code === "DBE") return "DATABASE ERROR";
+        if (code !== "SU") return;
 
-      const { commentList } = responseBody as GetCommentListResponse;
+        const { commentList } = responseBody as GetCommentListResponse;
 
-      setTotalList(commentList);
-      setTotalComment(commentList.length);
-    };
+        setTotalList(commentList);
+        setTotalComment(commentList.length);
+      },
+      [setTotalList]
+    );
+    // const getCommentListResponse = (
+    //   responseBody: GetCommentListResponse | Response | null
+    // ) => {
+    //   if (!responseBody) return;
+
+    //   const { code } = responseBody;
+    //   if (code === "DBE") return "DATABASE ERROR";
+    //   if (code !== "SU") return;
+
+    //   const { commentList } = responseBody as GetCommentListResponse;
+
+    //   setTotalList(commentList);
+    //   setTotalComment(commentList.length);
+    // };
 
     //Post Comment Response
     const postCommentResponse = (
@@ -353,7 +374,7 @@ const PostDetail = () => {
       if (!postId) return;
       getFavoriteListRequest(postId).then(getFavoriteListResponse);
       getCommentListRequest(postId).then(getCommentListResponse);
-    }, [postId]);
+    }, [getCommentListResponse]);
 
     return (
       <div className="h-screen flex flex-col gap-5">
@@ -482,12 +503,12 @@ const PostDetail = () => {
   };
 
   // View counter
-  let effectFlag = true;
+  const effectFlag = useRef(true);
   useEffect(() => {
     if (!postId) return;
 
-    if (effectFlag) {
-      effectFlag = false;
+    if (effectFlag.current) {
+      effectFlag.current = false;
       return;
     }
 

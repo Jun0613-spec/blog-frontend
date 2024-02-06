@@ -1,8 +1,13 @@
-import React, { ChangeEvent, useEffect, useRef, useState } from "react";
+import React, {
+  ChangeEvent,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { AiOutlineClose } from "react-icons/ai";
 import { CiImageOn } from "react-icons/ci";
 import { useNavigate, useParams } from "react-router-dom";
-import { useCookies } from "react-cookie";
 import toast from "react-hot-toast";
 
 import { MAIN_PATH } from "../../constant";
@@ -29,41 +34,71 @@ const UpdatePost = () => {
   const { content, setContent } = usePostStore();
   const { postImageFileList, setPostImageFileList } = usePostStore();
 
-  const [cookies, setCookies] = useCookies();
-
   const [imageUrls, setImageUrls] = useState<string[]>([]);
 
   const navigate = useNavigate();
 
+  const getPostResponse = useCallback(
+    (responseBody: GetPostResponse | Response | null) => {
+      if (!responseBody) return;
+      const { code } = responseBody;
+      if (code === "DBE") toast.error("DATABASE ERROR");
+      if (code !== "SU") {
+        navigate(MAIN_PATH());
+        return;
+      }
+
+      const { title, content, postImageList, postEmail } =
+        responseBody as GetPostResponse;
+      setTitle(title);
+      setContent(content);
+      setImageUrls(postImageList);
+      convertUrlsToFile(postImageList).then((postImageFileList) =>
+        setPostImageFileList(postImageFileList)
+      );
+
+      if (!loginUser || loginUser.email !== postEmail) {
+        navigate(MAIN_PATH());
+        toast.error("Something went wrong");
+        return;
+      }
+
+      if (!contentRef.current) return;
+      contentRef.current.style.height = "auto";
+      contentRef.current.style.height = `${contentRef.current.scrollHeight}px`;
+    },
+    [loginUser, navigate, setContent, setPostImageFileList, setTitle]
+  );
+
   // Get Post Response
-  const getPostResponse = (responseBody: GetPostResponse | Response | null) => {
-    if (!responseBody) return;
-    const { code } = responseBody;
-    if (code === "DBE") toast.error("DATABASE ERROR");
-    if (code !== "SU") {
-      navigate(MAIN_PATH());
-      return;
-    }
+  // const getPostResponse = (responseBody: GetPostResponse | Response | null) => {
+  //   if (!responseBody) return;
+  //   const { code } = responseBody;
+  //   if (code === "DBE") toast.error("DATABASE ERROR");
+  //   if (code !== "SU") {
+  //     navigate(MAIN_PATH());
+  //     return;
+  //   }
 
-    const { title, content, postImageList, postEmail } =
-      responseBody as GetPostResponse;
-    setTitle(title);
-    setContent(content);
-    setImageUrls(postImageList);
-    convertUrlsToFile(postImageList).then((postImageFileList) =>
-      setPostImageFileList(postImageFileList)
-    );
+  //   const { title, content, postImageList, postEmail } =
+  //     responseBody as GetPostResponse;
+  //   setTitle(title);
+  //   setContent(content);
+  //   setImageUrls(postImageList);
+  //   convertUrlsToFile(postImageList).then((postImageFileList) =>
+  //     setPostImageFileList(postImageFileList)
+  //   );
 
-    if (!loginUser || loginUser.email !== postEmail) {
-      navigate(MAIN_PATH());
-      toast.error("Something went wrong");
-      return;
-    }
+  //   if (!loginUser || loginUser.email !== postEmail) {
+  //     navigate(MAIN_PATH());
+  //     toast.error("Something went wrong");
+  //     return;
+  //   }
 
-    if (!contentRef.current) return;
-    contentRef.current.style.height = "auto";
-    contentRef.current.style.height = `${contentRef.current.scrollHeight}px`;
-  };
+  //   if (!contentRef.current) return;
+  //   contentRef.current.style.height = "auto";
+  //   contentRef.current.style.height = `${contentRef.current.scrollHeight}px`;
+  // };
 
   const onContentChangeHandler = (event: ChangeEvent<HTMLTextAreaElement>) => {
     const { value } = event.target;
@@ -113,14 +148,14 @@ const UpdatePost = () => {
 
   // When postId changes
   useEffect(() => {
-    const accessToken = cookies.accessToken;
-    if (!accessToken) {
-      navigate(MAIN_PATH());
-      return;
-    }
+    // const accessToken = cookies.accessToken;
+    // if (!accessToken) {
+    //   navigate(MAIN_PATH());
+    //   return;
+    // }
     if (!postId) return;
     getPostRequest(postId).then(getPostResponse);
-  }, [postId]);
+  }, [postId, getPostResponse]);
 
   return (
     <div className="min-h-screen flex justify-center bg-white dark:bg-zinc-800">

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import TopItems from "../TopItems";
@@ -38,33 +38,6 @@ const Home = () => {
     setTop3PostList(top3List);
   };
 
-  // Get Latest Post List Response
-  const getLatestPostListResponse = (
-    responseBody: GetLatestPostListResponse | Response | null
-  ) => {
-    if (!responseBody) return;
-    const { code } = responseBody;
-    if (code === "DBE") return "DATABASE ERROR";
-    if (code !== "SU") return;
-
-    const { latestList } = responseBody as GetLatestPostListResponse;
-
-    setTotalList(latestList);
-  };
-
-  // Get Popular Word List Response
-  const getPopularWordListResponse = (
-    responseBody: GetPopularListResponse | Response | null
-  ) => {
-    if (!responseBody) return;
-    const { code } = responseBody;
-    if (code === "DBE") return "DATABASE ERROR";
-    if (code !== "SU") return;
-
-    const { popularWordList } = responseBody as GetPopularListResponse;
-    setPopularWordList(popularWordList);
-  };
-
   // Top 3 Posts
   const [top3PostList, setTop3PostList] = useState<PostListItem[]>([]);
 
@@ -84,6 +57,51 @@ const Home = () => {
     setTotalList,
   } = usePagination<PostListItem>(5);
 
+  // Get Latest Post List Response
+  const getLatestPostListResponse = useCallback(
+    (responseBody: GetLatestPostListResponse | Response | null) => {
+      if (!responseBody) return;
+      const { code } = responseBody;
+      if (code === "DBE") return "DATABASE ERROR";
+      if (code !== "SU") return;
+
+      const { latestList } = responseBody as GetLatestPostListResponse;
+
+      setTotalList(latestList);
+    },
+    [setTotalList]
+  );
+
+  useEffect(() => {
+    getLatestPostListRequest().then(getLatestPostListResponse);
+  }, [getLatestPostListResponse]);
+
+  // const getLatestPostListResponse = (
+  //   responseBody: GetLatestPostListResponse | Response | null
+  // ) => {
+  //   if (!responseBody) return;
+  //   const { code } = responseBody;
+  //   if (code === "DBE") return "DATABASE ERROR";
+  //   if (code !== "SU") return;
+
+  //   const { latestList } = responseBody as GetLatestPostListResponse;
+
+  //   setTotalList(latestList);
+  // };
+
+  // Get Popular Word List Response
+  const getPopularWordListResponse = (
+    responseBody: GetPopularListResponse | Response | null
+  ) => {
+    if (!responseBody) return;
+    const { code } = responseBody;
+    if (code === "DBE") return "DATABASE ERROR";
+    if (code !== "SU") return;
+
+    const { popularWordList } = responseBody as GetPopularListResponse;
+    setPopularWordList(popularWordList);
+  };
+
   // Trending search
   const [popularWordList, setPopularWordList] = useState<string[]>([]);
 
@@ -92,9 +110,8 @@ const Home = () => {
   };
 
   useEffect(() => {
-    getLatestPostListRequest().then(getLatestPostListResponse);
     getPopularWordListRequest().then(getPopularWordListResponse);
-  }, []);
+  });
 
   return (
     <div className="bg-white dark:bg-zinc-800">

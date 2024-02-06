@@ -77,7 +77,7 @@ const PostWrite = () => {
       return;
     }
     resetPost();
-  }, []);
+  }, [cookies.accessToken, navigate, resetPost]);
 
   return (
     <div className="min-h-screen flex justify-center bg-white dark:bg-zinc-800">

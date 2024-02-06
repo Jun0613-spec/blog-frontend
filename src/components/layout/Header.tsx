@@ -27,7 +27,7 @@ const Header = () => {
   const [isMainPage, setIsMainPage] = useState<boolean>(false);
   const [isSearchPage, setIsSearchPage] = useState<boolean>(false);
   const [isPostDetailPage, setIsPostDetailPage] = useState<boolean>(false);
-  const [isPostWritePage, setIsPostWritePage] = useState<boolean>(false);
+  const [isPostUploadPage, setIsPostUploadPage] = useState<boolean>(false);
   const [isPostUpdatePage, setIsPostUpdatePage] = useState<boolean>(false);
   const [isUserPage, setIsUserPage] = useState<boolean>(false);
 
@@ -46,10 +46,10 @@ const Header = () => {
     );
     setIsPostDetailPage(isPostDetailPage);
 
-    const isPostWritePage = pathname.startsWith(
+    const isPostUploadPage = pathname.startsWith(
       POST_PATH() + "/" + POST_UPLOAD_PATH()
     );
-    setIsPostWritePage(isPostWritePage);
+    setIsPostUploadPage(isPostUploadPage);
 
     const isPostUpdatePage = pathname.startsWith(
       POST_PATH() + "/" + POST_UPDATE_PATH("")
@@ -81,7 +81,7 @@ const Header = () => {
           {(isMainPage || isSearchPage || isPostDetailPage || isUserPage) && (
             <LoginMyPageButton />
           )}
-          {(isPostWritePage || isPostUpdatePage) && <UploadButton />}
+          {(isPostUploadPage || isPostUpdatePage) && <UploadButton />}
           <ThemeToggle />
         </div>
       </div>

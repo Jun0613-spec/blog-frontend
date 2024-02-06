@@ -38,16 +38,7 @@ const TopItems = ({ top3ListItem }: Props) => {
     >
       <div className="flex flex-col gap-4">
         <div className="flex items-center gap-2">
-          <div
-          // className="top-3-list-item-profile-image w-full h-full bg-center bg-cover rounded-full"
-          // style={{
-          //   backgroundImage: `url(${
-          //     postUserProfileImage
-          //       ? postUserProfileImage
-          //       : defaultProfileImage
-          //   })`,
-          // }}
-          >
+          <div>
             <Avatar
               src={postUserProfileImage ? postUserProfileImage : defaultProfile}
             />
