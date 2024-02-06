@@ -48,12 +48,12 @@ const Home = () => {
   // Latest Posts with Pagination
   const {
     currentPage,
-    setCurrentPage,
     currentSection,
-    setCurrentSection,
     viewList,
     viewPageList,
     totalSection,
+    setCurrentPage,
+    setCurrentSection,
     setTotalList,
   } = usePagination<PostListItem>(5);
 
@@ -148,8 +148,11 @@ const Home = () => {
           </p>
           <div className="col-1/2 grid md:grid-cols-[8fr_4fr] gap-6">
             <div className="flex flex-col gap-4">
-              {viewList.map((item) => (
-                <PostItem key={item.postId} postListItem={item} />
+              {viewList.map((latestPostListItem) => (
+                <PostItem
+                  key={latestPostListItem.postId}
+                  postListItem={latestPostListItem}
+                />
               ))}
             </div>
             <div className="col-2/3">

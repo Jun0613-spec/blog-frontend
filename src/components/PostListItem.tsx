@@ -72,7 +72,7 @@ const PostItem: React.FC<Props> = ({ postListItem }) => {
         <div className="w-36 h-36 ">
           <img
             src={`${postTitleImage}`}
-            alt=""
+            alt="title"
             className="w-full h-full bg-center rounded-lg object-cover"
           />
         </div>

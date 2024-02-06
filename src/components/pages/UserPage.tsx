@@ -206,7 +206,7 @@ const UserPage = () => {
     });
   };
 
-  // Get Post List Response
+  // Get User Post List Response
   const getUserPostListResponse = useCallback(
     (responseBody: GetUserPostListResponse | Response | null) => {
       if (!responseBody) return;
@@ -337,8 +337,11 @@ const UserPage = () => {
               </p>
             ) : (
               <div className="col-1/2 flex flex-col gap-4">
-                {viewList.map((item) => (
-                  <PostItem key={item.postId} postListItem={item} />
+                {viewList.map((userPostList) => (
+                  <PostItem
+                    key={userPostList.postId}
+                    postListItem={userPostList}
+                  />
                 ))}
               </div>
             )}

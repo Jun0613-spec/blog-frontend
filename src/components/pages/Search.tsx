@@ -120,7 +120,10 @@ const Search = () => {
           ) : (
             <div className="col-1/2 flex flex-col gap-4">
               {viewList.map((postListItem) => (
-                <PostItem postListItem={postListItem} />
+                <PostItem
+                  postListItem={postListItem}
+                  key={postListItem.postId}
+                />
               ))}
             </div>
           )}
