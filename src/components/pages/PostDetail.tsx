@@ -56,8 +56,8 @@ import PutFavoriteResponse from "../../apis/response/favorite/put-favorite.respo
 import PostCommentRequest from "../../apis/request/comment/post-comment.request";
 import PostCommentResponse from "../../apis/response/comment/post-comment.response";
 import DeletePostResponse from "../../apis/response/post/delete-post.response";
+
 import usePagination from "../../hooks/pagination.hook";
-import ErrorPage from "./ErrorPage";
 
 const PostDetail = () => {
   const { postId } = useParams();
@@ -152,12 +152,7 @@ const PostDetail = () => {
       getPostRequest(postId).then(getPostResponse);
     }, []);
 
-    if (!post)
-      return (
-        <>
-          <ErrorPage />
-        </>
-      );
+    if (!post) return <></>;
 
     return (
       <div className="flex flex-col gap-10">

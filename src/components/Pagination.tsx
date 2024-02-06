@@ -4,7 +4,7 @@ import {
   MdKeyboardDoubleArrowRight,
 } from "react-icons/md";
 
-interface PaginaionProps {
+interface PaginationProps {
   currentPage: number;
   currentSection: number;
   setCurrentPage: Dispatch<SetStateAction<number>>;
@@ -13,16 +13,14 @@ interface PaginaionProps {
   totalSection: number;
 }
 
-const Pagination = (props: PaginaionProps) => {
-  const {
-    currentPage,
-    currentSection,
-    setCurrentPage,
-    setCurrentSection,
-    viewPageList,
-    totalSection,
-  } = props;
-
+const Pagination: React.FC<PaginationProps> = ({
+  currentPage,
+  currentSection,
+  setCurrentPage,
+  setCurrentSection,
+  viewPageList,
+  totalSection,
+}) => {
   const onPageClickHandler = (page: number) => {
     setCurrentPage(page);
   };
@@ -46,7 +44,11 @@ const Pagination = (props: PaginaionProps) => {
   const onNextHandler = () => {
     const lastPageInSection = currentSection * 5;
 
-    if (currentPage === lastPageInSection && currentSection < totalSection) {
+    if (
+      currentPage === lastPageInSection &&
+      currentSection < totalSection &&
+      currentPage < totalSection * 5
+    ) {
       // If on the last page of the current section and there is a next section
       setCurrentPage(lastPageInSection + 1);
       setCurrentSection(currentSection + 1);
