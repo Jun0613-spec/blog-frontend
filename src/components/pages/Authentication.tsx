@@ -19,6 +19,7 @@ import RegisterRequest from "../../apis/request/auth/register.request";
 export default function Authentication() {
   const [view, setView] = useState<"login" | "register">("login");
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [cookies, setCookies] = useCookies();
 
   const navigator = useNavigate();

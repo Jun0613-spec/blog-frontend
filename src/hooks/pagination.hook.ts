@@ -39,16 +39,19 @@ const usePagination = <T>(countPerPage: number) => {
 
     setView();
     setViewPage();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [totalList, countPerPage]);
 
   // When current Page changes
   useEffect(() => {
     setView();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentPage]);
 
   // When current Section changes
   useEffect(() => {
     setViewPage();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentSection]);
 
   return {
