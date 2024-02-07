@@ -62,6 +62,10 @@ const PostDetail = () => {
 
   const navigate = useNavigate();
 
+  const [viewCounterInitialized, setViewCounterInitialized] = useState(false);
+
+  const initializeViewCounter = useRef(true);
+
   //    Post Detail Top    //
   const PostDetailTop = () => {
     const [isPoster, setIsPoster] = useState<boolean>(false);
@@ -484,18 +488,23 @@ const PostDetail = () => {
   };
 
   // View counter
-  let effectFlag = true;
+  //let effectFlag = true;
 
   useEffect(() => {
     if (!postId) return;
 
-    if (effectFlag) {
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-      effectFlag = false;
+    // if (effectFlag) {
+    //   // eslint-disable-next-line react-hooks/exhaustive-deps
+    //   effectFlag = false;
+    //   return;
+    // }
+    if (initializeViewCounter.current) {
+      initializeViewCounter.current = false;
       return;
     }
 
     increaseViewCountRequest(postId).then(increaseViewCountRequestResponse);
+    setViewCounterInitialized(true);
   }, [postId]);
 
   return (
