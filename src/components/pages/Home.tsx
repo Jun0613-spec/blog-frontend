@@ -41,21 +41,21 @@ const Home = () => {
   // Top 3 Posts
   const [top3PostList, setTop3PostList] = useState<PostListItem[]>([]);
 
-  useEffect(() => {
-    const getTop3PostListResponse = (
-      responseBody: GetTop3PostListResponse | Response | null
-    ) => {
-      if (!responseBody) return;
-      const { code } = responseBody;
-      if (code === "DBE") return "DATABASE ERROR";
-      if (code !== "SU") return;
+  // useEffect(() => {
+  //   const getTop3PostListResponse = (
+  //     responseBody: GetTop3PostListResponse | Response | null
+  //   ) => {
+  //     if (!responseBody) return;
+  //     const { code } = responseBody;
+  //     if (code === "DBE") return "DATABASE ERROR";
+  //     if (code !== "SU") return;
 
-      const { top3List } = responseBody as GetTop3PostListResponse;
-      setTop3PostList(top3List);
-    };
+  //     const { top3List } = responseBody as GetTop3PostListResponse;
+  //     setTop3PostList(top3List);
+  //   };
 
-    getTop3PostListRequest().then(getTop3PostListResponse);
-  }, []);
+  //   getTop3PostListRequest().then(getTop3PostListResponse);
+  // }, []);
 
   // Latest Posts with Pagination
   const {
@@ -104,6 +104,18 @@ const Home = () => {
   };
 
   useEffect(() => {
+    const getTop3PostListResponse = (
+      responseBody: GetTop3PostListResponse | Response | null
+    ) => {
+      if (!responseBody) return;
+      const { code } = responseBody;
+      if (code === "DBE") return "DATABASE ERROR";
+      if (code !== "SU") return;
+
+      const { top3List } = responseBody as GetTop3PostListResponse;
+      setTop3PostList(top3List);
+    };
+
     const getLatestPostListResponse = (
       responseBody: GetLatestPostListResponse | Response | null
     ) => {
@@ -129,6 +141,7 @@ const Home = () => {
       setPopularWordList(popularWordList);
     };
 
+    getTop3PostListRequest().then(getTop3PostListResponse);
     getLatestPostListRequest().then(getLatestPostListResponse);
     getPopularWordListRequest().then(getPopularWordListResponse);
   }, [setTotalList]);
