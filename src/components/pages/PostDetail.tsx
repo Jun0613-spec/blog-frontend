@@ -62,10 +62,6 @@ const PostDetail = () => {
 
   const navigate = useNavigate();
 
-  const [viewCounterInitialized, setViewCounterInitialized] = useState(false);
-
-  const initializeViewCounter = useRef(true);
-
   //    Post Detail Top    //
   const PostDetailTop = () => {
     const [isPoster, setIsPoster] = useState<boolean>(false);
@@ -498,13 +494,8 @@ const PostDetail = () => {
     //   effectFlag = false;
     //   return;
     // }
-    if (initializeViewCounter.current) {
-      initializeViewCounter.current = false;
-      return;
-    }
 
     increaseViewCountRequest(postId).then(increaseViewCountRequestResponse);
-    setViewCounterInitialized(true);
   }, [postId]);
 
   return (
