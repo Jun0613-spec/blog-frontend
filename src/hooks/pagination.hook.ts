@@ -71,68 +71,58 @@
 
 // export default usePagination;
 
-import { useEffect, useState, Dispatch, SetStateAction } from "react";
+import { useState, useEffect } from "react";
 
-interface PaginationResult<T> {
-  currentPage: number;
-  setCurrentPage: Dispatch<SetStateAction<number>>;
-  currentSection: number;
-  setCurrentSection: Dispatch<SetStateAction<number>>;
-  viewList: T[];
-  viewPageList: number[];
-  totalSection: number;
-  updateTotalList: (newList: T[]) => void;
-  setTotalList: Dispatch<SetStateAction<T[]>>;
-}
-
-const usePagination = <T>(countPerPage: number): PaginationResult<T> => {
-  const [totalList, setTotalList] = useState<T[]>([]);
-  const [viewList, setViewList] = useState<T[]>([]);
+const usePagination = <T>(countPerPage: number) => {
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const [totalPageList, setTotalPageList] = useState<number[]>([1]);
-  const [viewPageList, setViewPageList] = useState<number[]>([1]);
   const [currentSection, setCurrentSection] = useState<number>(1);
-  const [totalSection, setTotalSection] = useState<number>(1);
+  const [viewList, setViewList] = useState<T[]>([]);
+  const [viewPageList, setViewPageList] = useState<number[]>([]);
+  const [totalPage, setTotalPage] = useState<number>(0);
+  const [totalSection, setTotalSection] = useState<number>(0);
+  const [totalList, setTotalList] = useState<T[]>([]);
 
-  const updateTotalList = (newList: T[]) => {
-    setTotalList(newList);
-  };
-
-  const setView = () => {
-    const firstIndex = countPerPage * (currentPage - 1);
-    const lastIndex = Math.min(countPerPage * currentPage, totalList.length);
-    const viewList = totalList.slice(firstIndex, lastIndex);
-    setViewList(viewList);
+  const setViewPost = () => {
+    const FIRST_INDEX = countPerPage * (currentPage - 1);
+    const LAST_INDEX = countPerPage * currentPage;
+    const tmpList = totalList.slice(FIRST_INDEX, LAST_INDEX);
+    setViewList(tmpList);
   };
 
   const setViewPage = () => {
-    const firstIndex = 5 * (currentSection - 1);
-    const lastIndex = Math.min(5 * currentSection, totalPageList.length);
-    const viewPageList = totalPageList.slice(firstIndex, lastIndex);
-    setViewPageList(viewPageList);
+    const FIRST_PAGE_INDEX = 10 * (currentSection - 1) + 1;
+    const LAST_PAGE_INDEX = 10 * currentSection;
+
+    const tmpPageNumberList = [];
+    for (
+      let pageNumber = FIRST_PAGE_INDEX;
+      pageNumber <= LAST_PAGE_INDEX;
+      pageNumber++
+    ) {
+      if (pageNumber > totalPage) break;
+      tmpPageNumberList.push(pageNumber);
+    }
+    setViewPageList(tmpPageNumberList);
   };
 
   useEffect(() => {
-    const totalPage = Math.ceil(totalList.length / countPerPage);
-    const newTotalPageList = Array.from(
-      { length: totalPage },
-      (_, index) => index + 1
-    );
-    setTotalPageList(newTotalPageList);
-
-    const totalSection = Math.ceil(newTotalPageList.length / 5);
-    setTotalSection(totalSection);
+    const totalPage = Math.floor((totalList.length - 1) / countPerPage) + 1;
+    const totalSection =
+      Math.floor((totalList.length - 1) / (countPerPage * 10)) + 1;
 
     setCurrentPage(1);
     setCurrentSection(1);
 
-    setView();
+    setTotalPage(totalPage);
+    setTotalSection(totalSection);
+
+    setViewPost();
     setViewPage();
-  }, [totalList, countPerPage]);
+  }, [totalList]);
 
   useEffect(() => {
-    setView();
-  }, [currentPage, totalList]);
+    setViewPost();
+  }, [currentPage]);
 
   useEffect(() => {
     setViewPage();
@@ -146,7 +136,6 @@ const usePagination = <T>(countPerPage: number): PaginationResult<T> => {
     viewList,
     viewPageList,
     totalSection,
-    updateTotalList,
     setTotalList,
   };
 };
