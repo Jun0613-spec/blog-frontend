@@ -354,6 +354,7 @@ const PostDetail = () => {
       if (!postId) return;
       getFavoriteListRequest(postId).then(getFavoriteListResponse);
       getCommentListRequest(postId).then(getCommentListResponse);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [postId]);
 
     return (

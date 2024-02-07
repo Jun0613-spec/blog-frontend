@@ -12,6 +12,7 @@ const usePagination = <T>(countPerPage: number) => {
   const setView = () => {
     const firstIndex = countPerPage * (currentPage - 1);
     const lastIndex = Math.min(countPerPage * currentPage, totalList.length);
+
     const viewList = totalList.slice(firstIndex, lastIndex);
     setViewList(viewList);
   };
@@ -21,17 +22,20 @@ const usePagination = <T>(countPerPage: number) => {
     const lastIndex = Math.min(5 * currentSection, totalPageList.length);
 
     const viewPageList = totalPageList.slice(firstIndex, lastIndex);
+
     setViewPageList(viewPageList);
   };
 
   // When total list changes
   useEffect(() => {
     const totalPage = Math.ceil(totalList.length / countPerPage);
-    const totalPageList: number[] = [];
-    for (let page = 1; page <= totalPage; page++) totalPageList.push(page);
-    setTotalPageList(totalPageList);
+    const newTotalPageList = Array.from(
+      { length: totalPage },
+      (_, index) => index + 1
+    );
+    setTotalPageList(newTotalPageList);
 
-    const totalSection = Math.ceil(totalPageList.length / 5);
+    const totalSection = Math.ceil(totalPage / 5);
     setTotalSection(totalSection);
 
     setCurrentPage(1);
@@ -41,12 +45,29 @@ const usePagination = <T>(countPerPage: number) => {
     setViewPage();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [totalList, countPerPage]);
+  // useEffect(() => {
+  //   const totalPage = Math.ceil(totalList.length / countPerPage);
+
+  //   const totalPageList: number[] = [];
+  //   for (let page = 1; page <= totalPage; page++) totalPageList.push(page);
+  //   setTotalPageList(totalPageList);
+
+  //   const totalSection = Math.ceil(totalPageList.length / 5);
+  //   setTotalSection(totalSection);
+
+  //   setCurrentPage(1);
+  //   setCurrentSection(1);
+
+  //   setView();
+  //   setViewPage();
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [totalList, countPerPage]);
 
   // When current Page changes
   useEffect(() => {
     setView();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentPage]);
+  }, [currentPage, totalList]);
 
   // When current Section changes
   useEffect(() => {
