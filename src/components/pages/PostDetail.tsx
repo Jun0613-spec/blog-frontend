@@ -474,6 +474,7 @@ const PostDetail = () => {
     );
   };
 
+  // View counter
   const increaseViewCountRequestResponse = (
     responseBody: IncreaseViewCountResponse | Response | null
   ) => {
@@ -483,17 +484,8 @@ const PostDetail = () => {
     if (code === "DBE") return "DATABASE ERROR";
   };
 
-  // View counter
-  //let effectFlag = true;
-
   useEffect(() => {
     if (!postId) return;
-
-    // if (effectFlag) {
-    //   // eslint-disable-next-line react-hooks/exhaustive-deps
-    //   effectFlag = false;
-    //   return;
-    // }
 
     increaseViewCountRequest(postId).then(increaseViewCountRequestResponse);
   }, [postId]);
