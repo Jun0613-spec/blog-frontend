@@ -71,57 +71,62 @@
 
 // export default usePagination;
 
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 
 const usePagination = <T>(countPerPage: number) => {
-  const [totalList, setTotalList] = useState<T[]>([]);
-  const [viewList, setViewList] = useState<T[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const [totalPageList, setTotalPageList] = useState<number[]>([1]);
-  const [viewPageList, setViewPageList] = useState<number[]>([1]);
   const [currentSection, setCurrentSection] = useState<number>(1);
-  const [totalSection, setTotalSection] = useState<number>(1);
+  const [viewList, setViewList] = useState<T[]>([]);
+  const [viewPageList, setViewPageList] = useState<number[]>([]);
+  const [totalPage, setTotalPage] = useState<number>(0);
+  const [totalSection, setTotalSection] = useState<number>(0);
+  const [totalList, setTotalList] = useState<T[]>([]);
 
-  const setView = () => {
+  const setViewListItems = () => {
     const firstIndex = countPerPage * (currentPage - 1);
-    const lastIndex = Math.min(countPerPage * currentPage, totalList.length);
+    const lastIndex = countPerPage * currentPage;
+    const tmpList = totalList.slice(firstIndex, lastIndex);
 
-    const viewList = totalList.slice(firstIndex, lastIndex);
-    setViewList(viewList);
+    setViewList(tmpList);
   };
 
-  const setViewPage = () => {
-    const firstIndex = 5 * (currentSection - 1);
-    const lastIndex = Math.min(5 * currentSection, totalPageList.length);
+  const setViewPageNumbers = (totalPage: number) => {
+    const firstPageIndex = 10 * (currentSection - 1) + 1;
+    const lastPageIndex = 10 * currentSection;
 
-    const viewPageList = totalPageList.slice(firstIndex, lastIndex);
+    const tmpPageNumberList = [];
 
-    setViewPageList(viewPageList);
+    for (
+      let pageNumber = firstPageIndex;
+      pageNumber <= lastPageIndex;
+      pageNumber++
+    ) {
+      if (pageNumber > totalPage) break;
+      tmpPageNumberList.push(pageNumber);
+    }
+
+    setViewPageList(tmpPageNumberList);
   };
 
   useEffect(() => {
-    const totalPage = Math.ceil(totalList.length / countPerPage);
-
-    const totalPageList: number[] = [];
-    for (let page = 1; page <= totalPage; page++) totalPageList.push(page);
-    setTotalPageList(totalPageList);
-
-    const totalSection = Math.ceil(totalPageList.length / 5);
-    setTotalSection(totalSection);
-
+    const totalPage = Math.floor((totalList.length - 1) / countPerPage) + 1;
+    const totalSection =
+      Math.floor((totalList.length - 1) / (countPerPage * 10)) + 1;
     setCurrentPage(1);
     setCurrentSection(1);
+    setTotalPage(totalPage);
+    setTotalSection(totalSection);
 
-    setView();
-    setViewPage();
-  }, [totalList, countPerPage]);
-
-  useEffect(() => {
-    setView();
-  }, [currentPage, totalList]);
+    setViewListItems();
+    setViewPageNumbers(totalPage);
+  }, [totalList]);
 
   useEffect(() => {
-    setViewPage();
+    setViewListItems();
+  }, [currentPage]);
+
+  useEffect(() => {
+    setViewPageNumbers(totalPage);
   }, [currentSection]);
 
   return {
