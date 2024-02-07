@@ -354,7 +354,7 @@ const PostDetail = () => {
       if (!postId) return;
       getFavoriteListRequest(postId).then(getFavoriteListResponse);
       getCommentListRequest(postId).then(getCommentListResponse);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+      // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [postId]);
 
     return (
@@ -423,7 +423,7 @@ const PostDetail = () => {
               </div>
               <div className="flex flex-col gap-7">
                 {viewList.map((item) => (
-                  <CommentItem commentListItem={item} />
+                  <CommentItem key={item.commentId} commentListItem={item} />
                 ))}
               </div>
             </div>

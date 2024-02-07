@@ -129,7 +129,10 @@ const Home = () => {
           <div className="col-1/2 grid md:grid-cols-[8fr_4fr] gap-6">
             <div className="flex flex-col gap-4">
               {viewList.map((latestPostListItem) => (
-                <PostItem postListItem={latestPostListItem} />
+                <PostItem
+                  key={latestPostListItem.postId}
+                  postListItem={latestPostListItem}
+                />
               ))}
             </div>
             <div className="col-2/3">
@@ -152,7 +155,7 @@ const Home = () => {
           </div>
         </div>
       </div>
-      <div className="flex justify-center items-center py-6 gap-2">
+      <div className="flex justify-center items-center py-6 gap-2 dark:bg-neutral-800">
         {viewList.length > 0 && (
           <Pagination
             currentPage={currentPage}
