@@ -26,22 +26,34 @@ const Home = () => {
   const navigate = useNavigate();
 
   // Get Top3 Post List Response
-  const getTop3PostListResponse = (
-    responseBody: GetTop3PostListResponse | Response | null
-  ) => {
-    if (!responseBody) return;
-    const { code } = responseBody;
-    if (code === "DBE") return "DATABASE ERROR";
-    if (code !== "SU") return;
+  // const getTop3PostListResponse = (
+  //   responseBody: GetTop3PostListResponse | Response | null
+  // ) => {
+  //   if (!responseBody) return;
+  //   const { code } = responseBody;
+  //   if (code === "DBE") return "DATABASE ERROR";
+  //   if (code !== "SU") return;
 
-    const { top3List } = responseBody as GetTop3PostListResponse;
-    setTop3PostList(top3List);
-  };
+  //   const { top3List } = responseBody as GetTop3PostListResponse;
+  //   setTop3PostList(top3List);
+  // };
 
   // Top 3 Posts
   const [top3PostList, setTop3PostList] = useState<PostListItem[]>([]);
 
   useEffect(() => {
+    const getTop3PostListResponse = (
+      responseBody: GetTop3PostListResponse | Response | null
+    ) => {
+      if (!responseBody) return;
+      const { code } = responseBody;
+      if (code === "DBE") return "DATABASE ERROR";
+      if (code !== "SU") return;
+
+      const { top3List } = responseBody as GetTop3PostListResponse;
+      setTop3PostList(top3List);
+    };
+
     getTop3PostListRequest().then(getTop3PostListResponse);
   }, []);
 
@@ -58,31 +70,31 @@ const Home = () => {
   } = usePagination<PostListItem>(5);
 
   // Get Latest Post List Response
-  const getLatestPostListResponse = (
-    responseBody: GetLatestPostListResponse | Response | null
-  ) => {
-    if (!responseBody) return;
-    const { code } = responseBody;
-    if (code === "DBE") return "DATABASE ERROR";
-    if (code !== "SU") return;
+  // const getLatestPostListResponse = (
+  //   responseBody: GetLatestPostListResponse | Response | null
+  // ) => {
+  //   if (!responseBody) return;
+  //   const { code } = responseBody;
+  //   if (code === "DBE") return "DATABASE ERROR";
+  //   if (code !== "SU") return;
 
-    const { latestList } = responseBody as GetLatestPostListResponse;
+  //   const { latestList } = responseBody as GetLatestPostListResponse;
 
-    setTotalList(latestList);
-  };
+  //   setTotalList(latestList);
+  // };
 
   // Get Popular Word List Response
-  const getPopularWordListResponse = (
-    responseBody: GetPopularListResponse | Response | null
-  ) => {
-    if (!responseBody) return;
-    const { code } = responseBody;
-    if (code === "DBE") return "DATABASE ERROR";
-    if (code !== "SU") return;
+  // const getPopularWordListResponse = (
+  //   responseBody: GetPopularListResponse | Response | null
+  // ) => {
+  //   if (!responseBody) return;
+  //   const { code } = responseBody;
+  //   if (code === "DBE") return "DATABASE ERROR";
+  //   if (code !== "SU") return;
 
-    const { popularWordList } = responseBody as GetPopularListResponse;
-    setPopularWordList(popularWordList);
-  };
+  //   const { popularWordList } = responseBody as GetPopularListResponse;
+  //   setPopularWordList(popularWordList);
+  // };
 
   // Trending search
   const [popularWordList, setPopularWordList] = useState<string[]>([]);
@@ -92,9 +104,34 @@ const Home = () => {
   };
 
   useEffect(() => {
+    const getLatestPostListResponse = (
+      responseBody: GetLatestPostListResponse | Response | null
+    ) => {
+      if (!responseBody) return;
+      const { code } = responseBody;
+      if (code === "DBE") return "DATABASE ERROR";
+      if (code !== "SU") return;
+
+      const { latestList } = responseBody as GetLatestPostListResponse;
+
+      setTotalList(latestList);
+    };
+
+    const getPopularWordListResponse = (
+      responseBody: GetPopularListResponse | Response | null
+    ) => {
+      if (!responseBody) return;
+      const { code } = responseBody;
+      if (code === "DBE") return "DATABASE ERROR";
+      if (code !== "SU") return;
+
+      const { popularWordList } = responseBody as GetPopularListResponse;
+      setPopularWordList(popularWordList);
+    };
+
     getLatestPostListRequest().then(getLatestPostListResponse);
     getPopularWordListRequest().then(getPopularWordListResponse);
-  }, []);
+  }, [setTotalList]);
 
   return (
     <div className="bg-white dark:bg-zinc-800">
