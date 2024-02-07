@@ -484,12 +484,14 @@ const PostDetail = () => {
   };
 
   // View counter
-  const effectFlag = useRef(true);
+  let effectFlag = true;
+
   useEffect(() => {
     if (!postId) return;
 
-    if (effectFlag.current) {
-      effectFlag.current = false;
+    if (effectFlag) {
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+      effectFlag = false;
       return;
     }
 
