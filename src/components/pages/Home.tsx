@@ -94,6 +94,7 @@ const Home = () => {
   useEffect(() => {
     getLatestPostListRequest().then(getLatestPostListResponse);
     getPopularWordListRequest().then(getPopularWordListResponse);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [setTotalList]);
 
   return (
