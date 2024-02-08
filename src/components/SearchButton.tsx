@@ -38,34 +38,37 @@ const SearchButton = () => {
     }
   }, [searchWord]);
 
-  if (!status) {
-    return (
-      <div
-        className="mt-1 cursor-pointer hover:opacity-60 text-black dark:text-white"
-        onClick={onSearchButtonClickHandler}
-      >
-        <AiOutlineSearch size={24} />
-      </div>
-    );
-  }
-
   return (
-    <div className="border-[1px] border-solid border-black/30 dark:border-white/30 rounded-full pl-3 pr-2.5 py-0 w-58 flex items-center gap-2.5">
-      <input
-        className="flex-1 border-none bg-none outline-none text-black/90 dark:text-white bg-transparent dark:bg-transparent text-sm font-normal leading-tight"
-        type="text"
-        placeholder="Search..."
-        value={word}
-        onChange={(e) => setWord(e.target.value)}
-        onKeyDown={onSearchWordKeyDownHandler}
-      />
-      <div
-        className="cursor-pointer text-black dark:text-neutral-100 hover:opacity-60"
-        onClick={onSearchButtonClickHandler}
-        ref={searchButtonRef}
-      >
-        <AiOutlineSearch size={24} />
-      </div>
+    <div className="relative">
+      {!status ? (
+        <div
+          className="mt-1 cursor-pointer hover:opacity-60 text-black dark:text-white"
+          onClick={onSearchButtonClickHandler}
+        >
+          <AiOutlineSearch size={24} />
+        </div>
+      ) : (
+        <div
+          className="border-[1px] border-solid border-black/30 dark:border-white/30 rounded-full 
+           pl-3 pr-2.5 py-1.5 w-36 md:w-full flex items-center relative"
+        >
+          <input
+            className="flex-1 border-none bg-none outline-none text-black/90 dark:text-white bg-transparent dark:bg-transparent text-sm font-normal leading-tight pr-12"
+            type="text"
+            placeholder="Search..."
+            value={word}
+            onChange={(e) => setWord(e.target.value)}
+            onKeyDown={onSearchWordKeyDownHandler}
+          />
+          <div
+            className="cursor-pointer text-black dark:text-neutral-100 hover:opacity-60 absolute inset-y-0 right-0 flex items-center pr-2"
+            onClick={onSearchButtonClickHandler}
+            ref={searchButtonRef}
+          >
+            <AiOutlineSearch size={24} />
+          </div>
+        </div>
+      )}
     </div>
   );
 };
