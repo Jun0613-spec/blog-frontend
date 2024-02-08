@@ -1,9 +1,9 @@
 import { GiFeather } from "react-icons/gi";
-import { FaInstagram, FaLinkedin } from "react-icons/fa";
+import { FaGithub, FaLinkedin } from "react-icons/fa";
 
 const Footer = () => {
   const onInstaIconButtonClickHandler = () => {
-    window.open("https://www.instagram.com");
+    window.open("https://github.com/Jun0613-spec");
   };
 
   const onLinkedinIconButtonClickHandler = () => {
@@ -33,7 +33,7 @@ const Footer = () => {
                 onClick={onInstaIconButtonClickHandler}
                 className="flex items-center justify-center text-white"
               >
-                <FaInstagram size={24} />
+                <FaGithub size={24} />
               </div>
             </div>
             <div className="w-6 h-6 flex items-center justify-center cursor-pointer">
