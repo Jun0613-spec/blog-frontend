@@ -111,7 +111,7 @@ const Home = () => {
           </p>
           <div className="hidden md:flex md:flex-col md:items-center gap-4">
             <p className=" text-neutral-700 dark:text-neutral-200 text-xl md:text-2xl lg:text-3xl font-semibold leading-tight">
-              Top 3 Posts
+              Weekly Top 3 Posts
             </p>
             <div className="flex gap-6 flex-row justify-between">
               {top3PostList.map((top3PostListItem) => (
