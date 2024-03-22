@@ -123,7 +123,7 @@ const Home = () => {
       </div>
 
       <div className="flex justify-center bg-neutral-50 dark:bg-neutral-800 py-6 px-4 md:px-8">
-        <div className="w-full lg:min-w-[1200px] flex flex-col gap-6">
+        <div className="w-full lg:max-w-[1200px] flex flex-col gap-6">
           <p className="text-neutral-700 dark:text-neutral-200 text-xl md:text-2xl lg:text-3xl font-medium leading-tight">
             Latest Post
           </p>
