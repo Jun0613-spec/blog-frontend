@@ -14,7 +14,7 @@ import usePagination from "../../hooks/pagination.hook";
 import {
   getLatestPostListRequest,
   getPopularWordListRequest,
-  getTop3PostListRequest,
+  getTop3PostListRequest
 } from "../../apis";
 import GetTop3PostListResponse from "../../apis/response/post/list/get-top3-post-list.response";
 import Response from "../../apis/response/response";
@@ -54,7 +54,7 @@ const Home = () => {
     totalSection,
     setCurrentPage,
     setCurrentSection,
-    setTotalList,
+    setTotalList
   } = usePagination<PostListItem>(5);
 
   // Get Latest Post List Response
@@ -98,7 +98,7 @@ const Home = () => {
   }, [setTotalList]);
 
   return (
-    <div className="bg-white dark:bg-zinc-800">
+    <div className="h-screen bg-white dark:bg-zinc-800">
       <div className="flex justify-center pt-10 pb-6 px-4 md:px-8">
         <div className="main-top-container w-[1200px] flex flex-col items-center gap-8">
           <p className=" text-black dark:text-neutral-100 text-center text-2xl md:text-3xl lg:text-4xl font-bold leading-tight whitespace-pre-wrap">

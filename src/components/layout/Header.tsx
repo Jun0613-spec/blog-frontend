@@ -10,7 +10,7 @@ import {
   POST_UPDATE_PATH,
   POST_UPLOAD_PATH,
   SEARCH_PATH,
-  USER_PATH,
+  USER_PATH
 } from "../../constant";
 
 import ThemeToggle from "../ThemeToggle";

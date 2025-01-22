@@ -1,16 +1,18 @@
 /** @type {import('tailwindcss').Config} */
-export default {
+const tailwindConfig = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   darkMode: "class",
   theme: {
     extend: {
       fontFamily: {
-        nunito: ["Nunito Sans", "sans-serif"],
+        nunito: ["Nunito Sans", "sans-serif"]
       },
       backgroundImage: {
-        auth: "url('./assets/auth-background.png')",
-      },
-    },
+        auth: "url('./assets/auth-background.png')"
+      }
+    }
   },
-  plugins: [require("daisyui")],
+  plugins: [require("daisyui")]
 };
+
+module.exports = tailwindConfig;
